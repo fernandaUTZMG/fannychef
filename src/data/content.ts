@@ -1,15 +1,15 @@
 export const brand = {
   name: 'the fanny chef',
   founder: 'Stephany Calderón Gómez',
-  phone: '3337029802',
-  phoneDisplay: '33 3702 9802',
+  phone: '3337029801',
+  phoneDisplay: '33 3702 9801',
   email: 'thefanny.chef@gmail.com',
   instagram: 'https://www.instagram.com/thefanny.mood?igsh=MW8wenNzdGozbTg4ZQ==',
   instagramHandle: '@thefanny.mood',
   tiktok: 'https://www.tiktok.com/@thefanny.chef?_r=1&_t=ZS-98qox19Bvt3',
   tiktokHandle: '@thefanny.chef',
   whatsapp:
-    'https://wa.me/523337029802?text=Hola%20Stephy%2C%20quiero%20agendar%20una%20valoraci%C3%B3n%20con%20The%20Fanny%20Chef.',
+    'https://wa.me/523337029801?text=Hola%20Stephy%2C%20quiero%20agendar%20una%20valoraci%C3%B3n%20con%20The%20Fanny%20Chef.',
   city: 'Guadalajara y zona metropolitana',
   zones: 'Puerta de Hierro, Providencia, Midtown, Ladrón de Guevara y zonas cercanas',
 }
