@@ -1,0 +1,98 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-cream: #fbf6ec;
+  --color-sky: #aac7db;
+  --color-violet: #8c4fd1;
+  --color-magenta: #c15a87;
+  --color-coral: #e8794a;
+  --color-gold: #e3b23c;
+  --color-navy: #2b1b6b;
+  --color-ink: #1a1238;
+
+  --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-script: 'Caveat', cursive;
+  --font-serif: 'Source Serif 4', ui-serif, Georgia, serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4.5rem;
+  }
+
+  body {
+    @apply bg-cream text-ink font-body antialiased;
+    overflow-x: hidden;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+  }
+
+  /* Evita zoom automático en iOS al enfocar inputs */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-magenta) 35%, white);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .section-pad {
+    @apply px-4 sm:px-8 lg:px-12;
+  }
+
+  .section-max {
+    @apply mx-auto w-full max-w-6xl;
+  }
+
+  .safe-bottom {
+    padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+  }
+
+  .touch-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
