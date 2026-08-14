@@ -15,16 +15,6 @@ export function SmartVideo({ src, poster, className = '', alt = '' }: SmartVideo
   useEffect(() => {
     setFailed(false)
     setReady(false)
-
-    // If the file never becomes playable, keep the poster forever.
-    const timeout = window.setTimeout(() => {
-      setReady((isReady) => {
-        if (!isReady) setFailed(true)
-        return isReady
-      })
-    }, 4000)
-
-    return () => window.clearTimeout(timeout)
   }, [src])
 
   useEffect(() => {
@@ -63,26 +53,23 @@ export function SmartVideo({ src, poster, className = '', alt = '' }: SmartVideo
           alt=""
           aria-hidden="true"
           className={`${className} pointer-events-none`}
-          loading="lazy"
+          loading="eager"
         />
       ) : null}
       <video
         ref={videoRef}
         src={src}
-        className={`${className} z-[1] transition-opacity duration-500 ${
+        className={`${className} transition-opacity duration-500 ${
           ready ? 'opacity-100' : 'opacity-0'
         }`}
         muted
         loop
         playsInline
         autoPlay
-        preload="metadata"
+        preload="auto"
         poster={poster}
         onError={() => setFailed(true)}
-        onPlaying={(event) => {
-          const video = event.currentTarget
-          if (video.videoWidth > 0) setReady(true)
-        }}
+        onPlaying={() => setReady(true)}
         onLoadedData={(event) => {
           const video = event.currentTarget
           if (video.videoWidth === 0) {

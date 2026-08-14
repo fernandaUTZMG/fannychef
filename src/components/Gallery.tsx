@@ -50,7 +50,7 @@ function PlayBadge() {
   return (
     <span
       aria-hidden="true"
-      className="absolute right-2.5 top-2.5 inline-flex h-7 w-7 items-center justify-center rounded-full border border-cream/25 bg-ink/35 backdrop-blur-sm sm:right-4 sm:top-4 sm:h-9 sm:w-9"
+      className="absolute right-2.5 top-2.5 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full border border-cream/25 bg-ink/35 backdrop-blur-sm sm:right-4 sm:top-4 sm:h-9 sm:w-9"
     >
       <span className="ml-0.5 h-0 w-0 border-y-[4px] border-l-[7px] border-y-transparent border-l-cream sm:border-y-[6px] sm:border-l-[10px]" />
     </span>
@@ -86,8 +86,8 @@ function CarouselCard({
       }`}
     >
       <GalleryMedia item={item} />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/15 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 p-5">
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-ink/90 via-ink/15 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 z-10 p-5">
         <p className="font-display text-[11px] font-semibold uppercase tracking-[0.18em] text-cream/55">
           {mediaLabel}
         </p>

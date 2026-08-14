@@ -305,8 +305,8 @@ export const translations: Record<Lang, Translations> = {
         },
         {
           type: 'video',
-          src: '/img/3V.mp4',
-          poster: '/img/3.jpeg',
+          src: '/img/7V.mp4',
+          poster: '/img/7V-poster.jpg',
           alt: 'Momento en la cocina',
           label: 'Momento',
           caption: 'El detalle que cierra la experiencia.',
@@ -565,8 +565,8 @@ export const translations: Record<Lang, Translations> = {
         },
         {
           type: 'video',
-          src: '/img/3V.mp4',
-          poster: '/img/3.jpeg',
+          src: '/img/7V.mp4',
+          poster: '/img/7V-poster.jpg',
           alt: 'A kitchen moment',
           label: 'Moment',
           caption: 'The detail that completes the experience.',
