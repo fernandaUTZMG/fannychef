@@ -225,7 +225,7 @@ export const translations: Record<Lang, Translations> = {
     gallery: {
       eyebrow: 'Detrás de escena',
       title: 'Así se ve cuidarte desde la cocina.',
-      intro: 'Desliza y mira el proceso: insumos, fuego, orden y ese detalle que hace todo más fácil.',
+      intro: 'Mira el proceso: insumos, fuego, orden y ese detalle que hace todo más fácil.',
       swipe: 'Desliza con el dedo →',
       items: [
         {
@@ -476,7 +476,7 @@ export const translations: Record<Lang, Translations> = {
     gallery: {
       eyebrow: 'Behind the scenes',
       title: 'This is what care from the kitchen looks like.',
-      intro: 'Swipe through the process: groceries, heat, order, and the details that make it easy.',
+      intro: 'See the process: groceries, heat, order, and the details that make it easy.',
       swipe: 'Swipe to see more →',
       items: [
         {

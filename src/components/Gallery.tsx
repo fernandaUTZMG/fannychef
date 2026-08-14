@@ -6,14 +6,25 @@ import type { Translations } from '../i18n/translations'
 
 type GalleryItem = Translations['gallery']['items'][number]
 
-function sizeClasses(size: GalleryItem['size']) {
+function carouselSizeClasses(size: GalleryItem['size']) {
   switch (size) {
     case 'tall':
-      return 'w-[78vw] max-w-[260px] sm:w-[300px] sm:max-w-none aspect-[3/4]'
+      return 'w-[300px] aspect-[3/4]'
     case 'wide':
-      return 'w-[86vw] max-w-[340px] sm:w-[460px] sm:max-w-none aspect-[16/10]'
+      return 'w-[460px] aspect-[16/10]'
     default:
-      return 'w-[74vw] max-w-[250px] sm:w-[300px] sm:max-w-none aspect-square'
+      return 'w-[300px] aspect-square'
+  }
+}
+
+function masonryAspect(size: GalleryItem['size']) {
+  switch (size) {
+    case 'tall':
+      return 'aspect-[3/4]'
+    case 'wide':
+      return 'aspect-[4/3]'
+    default:
+      return 'aspect-square'
   }
 }
 
@@ -35,6 +46,30 @@ function GalleryMedia({ item }: { item: GalleryItem }) {
   return <img src={item.src} alt={item.alt} className={mediaClass} loading="lazy" />
 }
 
+function PlayBadge() {
+  return (
+    <span
+      aria-hidden="true"
+      className="absolute right-2.5 top-2.5 inline-flex h-7 w-7 items-center justify-center rounded-full border border-cream/25 bg-ink/35 backdrop-blur-sm sm:right-4 sm:top-4 sm:h-9 sm:w-9"
+    >
+      <span className="ml-0.5 h-0 w-0 border-y-[4px] border-l-[7px] border-y-transparent border-l-cream sm:border-y-[6px] sm:border-l-[10px]" />
+    </span>
+  )
+}
+
+function MasonryTile({ item, delay }: { item: GalleryItem; delay: number }) {
+  return (
+    <FadeIn delay={delay} className="mb-3 break-inside-avoid" y={20}>
+      <article
+        className={`group relative overflow-hidden rounded-[1.25rem] bg-navy/40 ${masonryAspect(item.size)}`}
+      >
+        <GalleryMedia item={item} />
+        {item.type === 'video' && <PlayBadge />}
+      </article>
+    </FadeIn>
+  )
+}
+
 function CarouselCard({
   item,
   index,
@@ -46,31 +81,20 @@ function CarouselCard({
 }) {
   return (
     <article
-      className={`group relative shrink-0 snap-center overflow-hidden rounded-[1.5rem] bg-navy/40 sm:rounded-[1.75rem] ${sizeClasses(item.size)} ${
-        index % 2 === 1 ? 'sm:mt-10' : 'sm:mt-0'
+      className={`group relative shrink-0 snap-center overflow-hidden rounded-[1.75rem] bg-navy/40 ${carouselSizeClasses(item.size)} ${
+        index % 2 === 1 ? 'mt-10' : 'mt-0'
       }`}
     >
       <GalleryMedia item={item} />
       <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/15 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+      <div className="absolute inset-x-0 bottom-0 p-5">
         <p className="font-display text-[11px] font-semibold uppercase tracking-[0.18em] text-cream/55">
           {mediaLabel}
         </p>
-        <h3 className="mt-1 font-display text-base font-semibold text-cream sm:text-xl">
-          {item.label}
-        </h3>
-        <p className="mt-1 font-display text-sm leading-relaxed text-cream/70">
-          {item.caption}
-        </p>
+        <h3 className="mt-1 font-display text-xl font-semibold text-cream">{item.label}</h3>
+        <p className="mt-1 font-display text-sm leading-relaxed text-cream/70">{item.caption}</p>
       </div>
-      {item.type === 'video' && (
-        <span
-          aria-hidden="true"
-          className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full border border-cream/25 bg-ink/30 backdrop-blur-sm sm:right-4 sm:top-4 sm:h-9 sm:w-9"
-        >
-          <span className="ml-0.5 h-0 w-0 border-y-[5px] border-l-[8px] border-y-transparent border-l-cream sm:border-y-[6px] sm:border-l-[10px]" />
-        </span>
-      )}
+      {item.type === 'video' && <PlayBadge />}
     </article>
   )
 }
@@ -149,48 +173,34 @@ export function Gallery() {
         </FadeIn>
       </div>
 
-      <FadeIn delay={0.08}>
+      {/* Mobile: masonry collage */}
+      <div className="mt-8 columns-2 gap-3 px-4 sm:hidden">
+        {gallery.map((item, index) => (
+          <MasonryTile
+            key={`${lang}-m-${item.src}-${item.label}`}
+            item={item}
+            delay={Math.min(index * 0.04, 0.28)}
+          />
+        ))}
+      </div>
+
+      {/* Desktop: horizontal carousel */}
+      <FadeIn delay={0.08} className="hidden sm:block">
         <div
           ref={scrollerRef}
-          className="touch-scroll no-scrollbar mt-8 flex items-start gap-3 overflow-x-auto px-4 pb-3 pt-1 snap-x snap-mandatory sm:mt-10 sm:gap-5 sm:px-8 lg:px-[max(2rem,calc((100vw-72rem)/2+3rem))]"
+          className="touch-scroll no-scrollbar mt-10 flex items-start gap-5 overflow-x-auto px-8 pb-3 pt-1 snap-x snap-mandatory lg:px-[max(2rem,calc((100vw-72rem)/2+3rem))]"
         >
           {gallery.map((item, index) => (
             <CarouselCard
               key={`${lang}-${item.src}-${item.label}`}
               item={item}
               index={index}
-              mediaLabel={
-                item.type === 'video' ? 'Video' : lang === 'es' ? 'Foto' : 'Photo'
-              }
+              mediaLabel={item.type === 'video' ? 'Video' : lang === 'es' ? 'Foto' : 'Photo'}
             />
           ))}
-          <div className="w-2 shrink-0 sm:w-6" aria-hidden="true" />
+          <div className="w-6 shrink-0" aria-hidden="true" />
         </div>
       </FadeIn>
-
-      <div className="section-pad section-max mt-3 flex items-center justify-between gap-3 sm:mt-4">
-        <p className="font-display text-xs text-cream/45 sm:hidden">{t.gallery.swipe}</p>
-        <div className="flex items-center gap-2 sm:hidden">
-          <button
-            type="button"
-            aria-label="Previous"
-            disabled={!canPrev}
-            onClick={() => scrollByCard(-1)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-cream/25 disabled:opacity-35"
-          >
-            ←
-          </button>
-          <button
-            type="button"
-            aria-label="Next"
-            disabled={!canNext}
-            onClick={() => scrollByCard(1)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-cream/25 disabled:opacity-35"
-          >
-            →
-          </button>
-        </div>
-      </div>
     </section>
   )
 }

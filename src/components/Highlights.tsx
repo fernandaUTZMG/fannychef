@@ -1,9 +1,15 @@
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { FadeIn } from './FadeIn'
 import { useLanguage } from '../i18n/LanguageContext'
 
 export function Highlights() {
   const { t } = useLanguage()
   const services = t.services.items
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  const { scrollXProgress } = useScroll({ container: scrollRef })
+  const barScale = useTransform(scrollXProgress, [0, 1], [0.12, 1])
 
   return (
     <section id="servicios" className="bg-cream py-16 sm:py-28">
@@ -21,21 +27,36 @@ export function Highlights() {
         </FadeIn>
       </div>
 
-      <div className="mt-8 flex gap-4 overflow-x-auto px-4 pb-2 touch-scroll no-scrollbar sm:hidden">
-        {services.map((item) => (
-          <article key={item.title} className="w-[68%] max-w-[240px] shrink-0">
-            <div className="overflow-hidden rounded-2xl bg-ink">
-              <img
-                src={item.media}
-                alt={item.title}
-                className="aspect-[4/3] w-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <h3 className="mt-3 font-display text-base font-bold text-navy">{item.title}</h3>
-            <p className="mt-1 font-display text-sm leading-relaxed text-navy/70">{item.copy}</p>
-          </article>
-        ))}
+      <div className="sm:hidden">
+        <div
+          ref={scrollRef}
+          className="mt-8 flex gap-4 overflow-x-auto px-4 pb-2 touch-scroll no-scrollbar"
+        >
+          {services.map((item) => (
+            <article key={item.title} className="w-[68%] max-w-[240px] shrink-0">
+              <div className="overflow-hidden rounded-2xl bg-ink">
+                <img
+                  src={item.media}
+                  alt={item.title}
+                  className="aspect-[4/3] w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <h3 className="mt-3 font-display text-base font-bold text-navy">{item.title}</h3>
+              <p className="mt-1 font-display text-sm leading-relaxed text-navy/70">{item.copy}</p>
+            </article>
+          ))}
+        </div>
+
+        <div
+          className="mx-auto mt-5 h-1 w-[min(72%,14rem)] overflow-hidden rounded-full bg-navy/10"
+          aria-hidden="true"
+        >
+          <motion.div
+            className="h-full origin-left rounded-full bg-gold"
+            style={{ scaleX: barScale }}
+          />
+        </div>
       </div>
 
       <div className="section-pad section-max mt-10 hidden sm:block">
