@@ -1,12 +1,14 @@
-import { brand } from '../data/content'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export function WhatsAppButton() {
+  const { whatsapp } = useLanguage()
+
   return (
     <a
-      href={brand.whatsapp}
+      href={whatsapp}
       target="_blank"
       rel="noreferrer"
-      aria-label="Escribir por WhatsApp"
+      aria-label="WhatsApp"
       className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-50 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy sm:bottom-5 sm:right-5 sm:h-14 sm:w-14"
     >
       <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current sm:h-7 sm:w-7" aria-hidden="true">

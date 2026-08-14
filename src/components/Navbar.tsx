@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
-import { brand, navLinks } from '../data/content'
+import { brand } from '../i18n/translations'
+import { useLanguage } from '../i18n/LanguageContext'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
 export function Navbar() {
+  const { t, whatsapp } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -37,13 +40,13 @@ export function Navbar() {
           }`}
           onClick={() => setOpen(false)}
         >
-          <span className={solid ? 'text-sky' : 'text-sky'}>the</span>{' '}
+          <span className="text-sky">the</span>{' '}
           <span className={solid ? 'text-violet' : 'text-[#c9a4f0]'}>fanny</span>{' '}
           <span className={solid ? 'text-coral' : 'text-[#f0a57a]'}>chef</span>
         </a>
 
         <ul className="hidden items-center gap-6 lg:flex">
-          {navLinks.map((link) => (
+          {t.nav.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
@@ -59,7 +62,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-2 sm:gap-3">
           <a
-            href={brand.whatsapp}
+            href={whatsapp}
             target="_blank"
             rel="noreferrer"
             className={`hidden rounded-full px-4 py-2 font-display text-sm font-semibold transition sm:inline-flex ${
@@ -68,12 +71,13 @@ export function Navbar() {
                 : 'bg-cream text-navy hover:bg-white'
             }`}
           >
-            Agenda tu valoración
+            {t.cta}
           </a>
+          <LanguageSwitcher solid={solid} />
           <button
             type="button"
             aria-expanded={open}
-            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+            aria-label={open ? 'Close menu' : 'Open menu'}
             className={`inline-flex h-11 w-11 items-center justify-center rounded-full border lg:hidden ${
               solid
                 ? 'border-navy/15 text-navy'
@@ -81,7 +85,7 @@ export function Navbar() {
             }`}
             onClick={() => setOpen((v) => !v)}
           >
-            <span className="sr-only">Menú</span>
+            <span className="sr-only">Menu</span>
             <div className="relative h-4 w-5">
               <span
                 className={`absolute left-0 top-0 block h-0.5 w-5 origin-center transition ${
@@ -106,7 +110,7 @@ export function Navbar() {
       {open && (
         <div className="max-h-[calc(100svh-3.5rem)] overflow-y-auto border-t border-navy/10 bg-cream px-4 py-5 lg:hidden">
           <ul className="flex flex-col gap-1">
-            {navLinks.map((link) => (
+            {t.nav.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
@@ -119,14 +123,17 @@ export function Navbar() {
             ))}
             <li className="pt-3">
               <a
-                href={brand.whatsapp}
+                href={whatsapp}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex w-full items-center justify-center rounded-full bg-navy px-4 py-3.5 font-display text-sm font-semibold text-cream"
                 onClick={() => setOpen(false)}
               >
-                Agenda tu valoración
+                {t.cta}
               </a>
+            </li>
+            <li className="pt-2 text-xs text-navy/50">
+              {brand.instagramHandle} · {brand.tiktokHandle}
             </li>
           </ul>
         </div>

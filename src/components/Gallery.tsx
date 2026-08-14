@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { FadeIn } from './FadeIn'
 import { SmartVideo } from './SmartVideo'
-import { gallery, type GalleryItem } from '../data/content'
+import { useLanguage } from '../i18n/LanguageContext'
+import type { Translations } from '../i18n/translations'
+
+type GalleryItem = Translations['gallery']['items'][number]
 
 function sizeClasses(size: GalleryItem['size']) {
   switch (size) {
@@ -32,7 +35,15 @@ function GalleryMedia({ item }: { item: GalleryItem }) {
   return <img src={item.src} alt={item.alt} className={mediaClass} loading="lazy" />
 }
 
-function CarouselCard({ item, index }: { item: GalleryItem; index: number }) {
+function CarouselCard({
+  item,
+  index,
+  mediaLabel,
+}: {
+  item: GalleryItem
+  index: number
+  mediaLabel: string
+}) {
   return (
     <article
       className={`group relative shrink-0 snap-center overflow-hidden rounded-[1.5rem] bg-navy/40 sm:rounded-[1.75rem] ${sizeClasses(item.size)} ${
@@ -43,7 +54,7 @@ function CarouselCard({ item, index }: { item: GalleryItem; index: number }) {
       <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/15 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
         <p className="font-display text-[11px] font-semibold uppercase tracking-[0.18em] text-cream/55">
-          {item.type === 'video' ? 'Video' : 'Foto'}
+          {mediaLabel}
         </p>
         <h3 className="mt-1 font-display text-base font-semibold text-cream sm:text-xl">
           {item.label}
@@ -65,6 +76,8 @@ function CarouselCard({ item, index }: { item: GalleryItem; index: number }) {
 }
 
 export function Gallery() {
+  const { t, lang } = useLanguage()
+  const gallery = t.gallery.items
   const scrollerRef = useRef<HTMLDivElement>(null)
   const [canPrev, setCanPrev] = useState(false)
   const [canNext, setCanNext] = useState(true)
@@ -102,20 +115,20 @@ export function Gallery() {
           <div className="flex flex-col gap-5 sm:gap-6 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="font-display text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-                Detrás de escena
+                {t.gallery.eyebrow}
               </p>
               <h2 className="mt-3 max-w-3xl font-display text-[1.85rem] font-bold tracking-tight text-balance sm:text-4xl md:text-5xl">
-                Así se ve cuidarte desde la cocina.
+                {t.gallery.title}
               </h2>
               <p className="mt-3 max-w-lg font-display text-sm leading-relaxed text-cream/65 sm:mt-4 sm:text-base">
-                Desliza y mira el proceso: insumos, fuego, orden y ese detalle que hace todo más fácil.
+                {t.gallery.intro}
               </p>
             </div>
 
             <div className="hidden items-center gap-2 sm:flex">
               <button
                 type="button"
-                aria-label="Anterior"
+                aria-label="Previous"
                 disabled={!canPrev}
                 onClick={() => scrollByCard(-1)}
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cream/25 transition hover:bg-cream/10 disabled:cursor-not-allowed disabled:opacity-35"
@@ -124,7 +137,7 @@ export function Gallery() {
               </button>
               <button
                 type="button"
-                aria-label="Siguiente"
+                aria-label="Next"
                 disabled={!canNext}
                 onClick={() => scrollByCard(1)}
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cream/25 transition hover:bg-cream/10 disabled:cursor-not-allowed disabled:opacity-35"
@@ -142,20 +155,25 @@ export function Gallery() {
           className="touch-scroll no-scrollbar mt-8 flex items-start gap-3 overflow-x-auto px-4 pb-3 pt-1 snap-x snap-mandatory sm:mt-10 sm:gap-5 sm:px-8 lg:px-[max(2rem,calc((100vw-72rem)/2+3rem))]"
         >
           {gallery.map((item, index) => (
-            <CarouselCard key={`${item.src}-${item.label}`} item={item} index={index} />
+            <CarouselCard
+              key={`${lang}-${item.src}-${item.label}`}
+              item={item}
+              index={index}
+              mediaLabel={
+                item.type === 'video' ? 'Video' : lang === 'es' ? 'Foto' : 'Photo'
+              }
+            />
           ))}
           <div className="w-2 shrink-0 sm:w-6" aria-hidden="true" />
         </div>
       </FadeIn>
 
       <div className="section-pad section-max mt-3 flex items-center justify-between gap-3 sm:mt-4">
-        <p className="font-display text-xs text-cream/45 sm:hidden">
-          Desliza con el dedo →
-        </p>
+        <p className="font-display text-xs text-cream/45 sm:hidden">{t.gallery.swipe}</p>
         <div className="flex items-center gap-2 sm:hidden">
           <button
             type="button"
-            aria-label="Anterior"
+            aria-label="Previous"
             disabled={!canPrev}
             onClick={() => scrollByCard(-1)}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-cream/25 disabled:opacity-35"
@@ -164,7 +182,7 @@ export function Gallery() {
           </button>
           <button
             type="button"
-            aria-label="Siguiente"
+            aria-label="Next"
             disabled={!canNext}
             onClick={() => scrollByCard(1)}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-cream/25 disabled:opacity-35"

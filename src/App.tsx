@@ -7,18 +7,17 @@ import { Highlights } from './components/Highlights'
 import { Membership } from './components/Membership'
 import { Navbar } from './components/Navbar'
 import { Process } from './components/Process'
-import { Services } from './components/Services'
 import { WhatsAppButton } from './components/WhatsAppButton'
+import { LanguageProvider } from './i18n/LanguageContext'
 
 function App() {
   return (
-    <>
+    <LanguageProvider>
       <Navbar />
       <main>
         <Hero />
         <Highlights />
         <About />
-        <Services />
         <Membership />
         <Process />
         <Gallery />
@@ -26,7 +25,7 @@ function App() {
       </main>
       <Footer />
       <WhatsAppButton />
-    </>
+    </LanguageProvider>
   )
 }
 

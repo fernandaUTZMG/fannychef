@@ -1,43 +1,62 @@
+import { motion, useReducedMotion } from 'framer-motion'
 import { FadeIn } from './FadeIn'
-import { processSteps } from '../data/content'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export function Process() {
+  const { t } = useLanguage()
+  const steps = t.process.steps
+  const reduceMotion = useReducedMotion()
+
   return (
     <section id="proceso" className="bg-sky/35 py-16 sm:py-28">
       <div className="section-pad section-max">
         <FadeIn>
           <p className="font-display text-sm font-semibold uppercase tracking-[0.2em] text-navy/70">
-            Cómo funciona
+            {t.process.eyebrow}
           </p>
           <h2 className="mt-3 max-w-3xl font-display text-[1.85rem] font-bold tracking-tight text-navy text-balance sm:text-4xl md:text-5xl">
-            Simple, claro y sin rodeos.
+            {t.process.title}
           </h2>
         </FadeIn>
-      </div>
 
-      <div className="mt-8 touch-scroll no-scrollbar flex gap-3 overflow-x-auto px-4 pb-2 sm:mt-12 sm:hidden">
-        {processSteps.map((item) => (
-          <article
-            key={item.step}
-            className="min-w-[78%] shrink-0 rounded-[1.5rem] bg-cream/80 p-5 shadow-[0_8px_30px_rgba(43,27,107,0.06)]"
-          >
-            <p className="font-display text-3xl font-bold text-violet/40">{item.step}</p>
-            <h3 className="mt-2 font-display text-xl font-bold text-navy">{item.title}</h3>
-            <p className="mt-2 font-display text-sm leading-relaxed text-navy/70">{item.copy}</p>
-          </article>
-        ))}
-      </div>
+        {/* Móvil: lista vertical clara, una por una al bajar */}
+        <ol className="relative mt-8 space-y-3 sm:hidden">
+          <div
+            aria-hidden="true"
+            className="absolute bottom-4 left-5 top-4 w-px bg-gradient-to-b from-violet/50 via-magenta/40 to-coral/50"
+          />
+          {steps.map((item) => (
+            <motion.li
+              key={item.step}
+              initial={reduceMotion ? false : { opacity: 0, y: 28, x: -12 }}
+              whileInView={{ opacity: 1, y: 0, x: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="relative flex gap-3"
+            >
+              <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-navy font-display text-sm font-bold text-cream shadow-md ring-4 ring-sky/35">
+                {item.step}
+              </span>
+              <article className="min-w-0 flex-1 rounded-2xl border border-navy/10 bg-cream/85 px-4 py-3.5">
+                <h3 className="font-display text-base font-bold text-navy">{item.title}</h3>
+                <p className="mt-1 font-display text-sm leading-relaxed text-navy/70">{item.copy}</p>
+              </article>
+            </motion.li>
+          ))}
+        </ol>
 
-      <div className="section-pad section-max mt-12 hidden gap-6 sm:grid md:grid-cols-5">
-        {processSteps.map((item, index) => (
-          <FadeIn key={item.step} delay={index * 0.07}>
-            <article className="h-full">
-              <p className="font-display text-4xl font-bold text-violet/40">{item.step}</p>
-              <h3 className="mt-3 font-display text-xl font-bold text-navy">{item.title}</h3>
-              <p className="mt-2 font-display text-sm leading-relaxed text-navy/70">{item.copy}</p>
-            </article>
-          </FadeIn>
-        ))}
+        {/* Desktop / tablet */}
+        <div className="mt-12 hidden gap-6 sm:grid md:grid-cols-5">
+          {steps.map((item, index) => (
+            <FadeIn key={item.step} delay={index * 0.07}>
+              <article className="h-full">
+                <p className="font-display text-4xl font-bold text-violet/40">{item.step}</p>
+                <h3 className="mt-3 font-display text-xl font-bold text-navy">{item.title}</h3>
+                <p className="mt-2 font-display text-sm leading-relaxed text-navy/70">{item.copy}</p>
+              </article>
+            </FadeIn>
+          ))}
+        </div>
       </div>
     </section>
   )

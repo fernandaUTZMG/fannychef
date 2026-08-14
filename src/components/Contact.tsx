@@ -1,6 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { FadeIn } from './FadeIn'
-import { brand, faqs } from '../data/content'
+import { brand } from '../i18n/translations'
+import { useLanguage } from '../i18n/LanguageContext'
 import {
   InstagramIcon,
   LocationIcon,
@@ -34,6 +35,7 @@ function ContactRow({
 }
 
 export function Contact() {
+  const { t, lang, whatsapp } = useLanguage()
   const [sent, setSent] = useState(false)
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -41,10 +43,15 @@ export function Contact() {
     const form = new FormData(event.currentTarget)
     const name = String(form.get('name') || '')
     const message = String(form.get('message') || '')
-    const text = encodeURIComponent(
-      `Hola Stephy, soy ${name}. Quiero agendar una valoración.\n\n${message}`,
+    const preface =
+      lang === 'en'
+        ? `Hi Stephy, I'm ${name}. I'd like to book a valuation.\n\n${message}`
+        : `Hola Stephy, soy ${name}. Quiero agendar una valoración.\n\n${message}`
+    window.open(
+      `https://wa.me/52${brand.phone}?text=${encodeURIComponent(preface)}`,
+      '_blank',
+      'noopener,noreferrer',
     )
-    window.open(`https://wa.me/52${brand.phone}?text=${text}`, '_blank', 'noopener,noreferrer')
     setSent(true)
   }
 
@@ -54,20 +61,20 @@ export function Contact() {
         <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-12">
           <FadeIn>
             <p className="font-display text-sm font-semibold uppercase tracking-[0.2em] text-magenta">
-              Contacto
+              {t.contact.eyebrow}
             </p>
             <h2 className="mt-3 font-display text-[1.85rem] font-bold tracking-tight text-navy text-balance sm:text-4xl md:text-5xl">
-              Cuéntame tu rutina y armamos tu plan.
+              {t.contact.title}
             </h2>
             <p className="mt-4 font-display text-base text-navy/70 sm:text-lg">
-              Agenda tu valoración. Estoy en {brand.city}.
+              {t.contact.intro} {t.contact.city}.
             </p>
 
             <div className="mt-8 space-y-4">
-              <ContactRow icon={<WhatsAppIcon className="h-5 w-5" />} label="WhatsApp">
+              <ContactRow icon={<WhatsAppIcon className="h-5 w-5" />} label={t.contact.whatsappLabel}>
                 <a
                   className="font-semibold text-violet underline-offset-2 hover:underline"
-                  href={brand.whatsapp}
+                  href={whatsapp}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -75,7 +82,7 @@ export function Contact() {
                 </a>
               </ContactRow>
 
-              <ContactRow icon={<MailIcon className="h-5 w-5" />} label="Correo">
+              <ContactRow icon={<MailIcon className="h-5 w-5" />} label={t.contact.emailLabel}>
                 <a
                   className="font-semibold text-violet underline-offset-2 break-all hover:underline"
                   href={`mailto:${brand.email}`}
@@ -84,8 +91,8 @@ export function Contact() {
                 </a>
               </ContactRow>
 
-              <ContactRow icon={<LocationIcon className="h-5 w-5" />} label="Zonas prioritarias">
-                <p>{brand.zones}</p>
+              <ContactRow icon={<LocationIcon className="h-5 w-5" />} label={t.contact.zonesLabel}>
+                <p>{t.contact.zones}</p>
               </ContactRow>
             </div>
 
@@ -111,7 +118,7 @@ export function Contact() {
             </div>
 
             <div className="mt-10 space-y-4">
-              {faqs.map((item) => (
+              {t.contact.faqs.map((item) => (
                 <details
                   key={item.q}
                   className="group rounded-2xl border border-navy/10 bg-white/50 px-4 py-3 open:bg-sky/20"
@@ -133,63 +140,58 @@ export function Contact() {
               onSubmit={onSubmit}
               className="rounded-[1.5rem] border border-navy/10 bg-white/60 p-5 shadow-[0_20px_60px_rgba(43,27,107,0.06)] sm:rounded-[2rem] sm:p-8"
             >
-              <h3 className="font-display text-2xl font-bold text-navy">Agenda tu valoración</h3>
-              <p className="mt-2 font-display text-sm text-navy/65">
-                Déjame tus datos y te escribo por WhatsApp.
-              </p>
+              <h3 className="font-display text-2xl font-bold text-navy">{t.contact.formTitle}</h3>
+              <p className="mt-2 font-display text-sm text-navy/65">{t.contact.formIntro}</p>
 
               <label className="mt-6 block font-display text-sm font-medium text-navy">
-                Nombre
+                {t.contact.name}
                 <input
                   required
                   name="name"
                   type="text"
                   className="mt-2 w-full rounded-xl border border-navy/15 bg-cream px-4 py-3.5 text-base outline-none ring-violet/30 focus:ring-2"
-                  placeholder="Tu nombre"
+                  placeholder={t.contact.namePh}
                   autoComplete="name"
                 />
               </label>
 
               <label className="mt-4 block font-display text-sm font-medium text-navy">
-                Zona o colonia
+                {t.contact.zone}
                 <input
                   required
                   name="zone"
                   type="text"
                   className="mt-2 w-full rounded-xl border border-navy/15 bg-cream px-4 py-3.5 text-base outline-none ring-violet/30 focus:ring-2"
-                  placeholder="Ej. Providencia"
+                  placeholder={t.contact.zonePh}
                 />
               </label>
 
               <label className="mt-4 block font-display text-sm font-medium text-navy">
-                Cuéntame un poquito
+                {t.contact.message}
                 <textarea
                   required
                   name="message"
                   rows={4}
                   className="mt-2 w-full resize-none rounded-xl border border-navy/15 bg-cream px-4 py-3.5 text-base outline-none ring-violet/30 focus:ring-2"
-                  placeholder="Tu rutina, qué te gustaría comer, si hay alergias o metas..."
+                  placeholder={t.contact.messagePh}
                 />
               </label>
 
               <label className="mt-4 flex items-start gap-3 font-display text-xs text-navy/70">
                 <input required type="checkbox" className="mt-0.5" />
-                <span>
-                  Acepto que me contacten sobre el servicio. Evita compartir información médica
-                  sensible aquí, por favor.
-                </span>
+                <span>{t.contact.consent}</span>
               </label>
 
               <button
                 type="submit"
                 className="mt-6 min-h-12 w-full rounded-full bg-navy px-5 py-3.5 font-display text-sm font-semibold text-cream transition hover:bg-violet"
               >
-                Enviar por WhatsApp
+                {t.contact.submit}
               </button>
 
               {sent && (
                 <p className="mt-3 text-center font-display text-sm text-magenta">
-                  Se abrió WhatsApp con tu mensaje. ¡Gracias!
+                  {t.contact.sent}
                 </p>
               )}
             </form>

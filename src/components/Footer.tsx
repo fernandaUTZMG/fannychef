@@ -1,7 +1,10 @@
-import { brand } from '../data/content'
+import { brand } from '../i18n/translations'
+import { useLanguage } from '../i18n/LanguageContext'
 import { InstagramIcon, MailIcon, TikTokIcon, WhatsAppIcon } from './SocialIcons'
 
 export function Footer() {
+  const { t, whatsapp } = useLanguage()
+
   return (
     <footer className="border-t border-navy/10 bg-navy text-cream pb-[4.5rem] sm:pb-0">
       <div className="section-pad section-max flex flex-col gap-6 py-10 sm:flex-row sm:items-end sm:justify-between">
@@ -12,7 +15,7 @@ export function Footer() {
             <span className="text-coral">chef</span>
           </p>
           <p className="mt-2 max-w-md font-display text-sm text-cream/70">
-            Chef privada · {brand.city}
+            {t.footer.role} · {t.footer.city}
           </p>
         </div>
 
@@ -44,7 +47,7 @@ export function Footer() {
             <MailIcon className="h-4 w-4" />
           </a>
           <a
-            href={brand.whatsapp}
+            href={whatsapp}
             target="_blank"
             rel="noreferrer"
             aria-label="WhatsApp"
@@ -57,7 +60,7 @@ export function Footer() {
       </div>
       <div className="section-pad section-max border-t border-cream/10 py-4">
         <p className="font-display text-xs text-cream/50">
-          © {new Date().getFullYear()} The Fanny Chef™. Orden · bienestar · servicio con propósito.
+          © {new Date().getFullYear()} The Fanny Chef™. {t.footer.rights}
         </p>
       </div>
     </footer>
