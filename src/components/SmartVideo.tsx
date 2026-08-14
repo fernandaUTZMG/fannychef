@@ -15,6 +15,16 @@ export function SmartVideo({ src, poster, className = '', alt = '' }: SmartVideo
   useEffect(() => {
     setFailed(false)
     setReady(false)
+
+    // If the file never becomes playable, keep the poster forever.
+    const timeout = window.setTimeout(() => {
+      setReady((isReady) => {
+        if (!isReady) setFailed(true)
+        return isReady
+      })
+    }, 4000)
+
+    return () => window.clearTimeout(timeout)
   }, [src])
 
   useEffect(() => {
@@ -29,13 +39,10 @@ export function SmartVideo({ src, poster, className = '', alt = '' }: SmartVideo
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry) return
-        if (entry.isIntersecting) {
-          tryPlay()
-        } else {
-          video.pause()
-        }
+        if (entry.isIntersecting) tryPlay()
+        else video.pause()
       },
-      { threshold: 0.25 },
+      { threshold: 0.2 },
     )
 
     observer.observe(video)
@@ -43,19 +50,14 @@ export function SmartVideo({ src, poster, className = '', alt = '' }: SmartVideo
   }, [src, failed])
 
   if (failed || !src) {
-    return (
-      <img
-        src={poster}
-        alt={alt}
-        className={className}
-        loading="lazy"
-      />
-    )
+    return poster ? (
+      <img src={poster} alt={alt} className={className} loading="lazy" />
+    ) : null
   }
 
   return (
     <>
-      {poster && (
+      {poster ? (
         <img
           src={poster}
           alt=""
@@ -63,38 +65,34 @@ export function SmartVideo({ src, poster, className = '', alt = '' }: SmartVideo
           className={`${className} pointer-events-none`}
           loading="lazy"
         />
-      )}
+      ) : null}
       <video
         ref={videoRef}
-        className={`${className} z-[1] bg-transparent transition-opacity duration-300 ${
+        src={src}
+        className={`${className} z-[1] transition-opacity duration-500 ${
           ready ? 'opacity-100' : 'opacity-0'
         }`}
         muted
         loop
         playsInline
         autoPlay
-        preload="auto"
+        preload="metadata"
         poster={poster}
         onError={() => setFailed(true)}
+        onPlaying={(event) => {
+          const video = event.currentTarget
+          if (video.videoWidth > 0) setReady(true)
+        }}
         onLoadedData={(event) => {
           const video = event.currentTarget
           if (video.videoWidth === 0) {
             setFailed(true)
             return
           }
-          setReady(true)
           const playPromise = video.play()
           if (playPromise) playPromise.catch(() => undefined)
         }}
-        onPlaying={() => setReady(true)}
-        onCanPlay={() => {
-          const video = videoRef.current
-          if (!video) return
-          if (video.videoWidth > 0) setReady(true)
-        }}
-      >
-        <source src={src} type="video/mp4" />
-      </video>
+      />
     </>
   )
 }
