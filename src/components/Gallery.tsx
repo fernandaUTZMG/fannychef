@@ -63,36 +63,39 @@ function PlayBadge() {
   )
 }
 
-function CollageCard({ item, aspect, index }: { item: GalleryItem; aspect: string; index: number }) {
+function CollageCard({
+  item,
+  aspect,
+  index,
+  fromRight,
+}: {
+  item: GalleryItem
+  aspect: string
+  index: number
+  fromRight?: boolean
+}) {
   const reduceMotion = useReducedMotion()
+  /** Row-based stagger so left/right don't pop at the same instant. */
+  const revealDelay = Math.floor(index / 2) * 0.08 + (fromRight ? 0.14 : 0)
 
   return (
     <motion.article
-      initial={reduceMotion ? false : { opacity: 0, y: 28, scale: 0.97 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: (index % 4) * 0.05 }}
+      initial={
+        reduceMotion
+          ? false
+          : { opacity: 0, y: 56, scale: 0.9, x: fromRight ? 28 : -28 }
+      }
+      whileInView={{ opacity: 1, y: 0, scale: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.35, margin: '0px 0px -12% 0px' }}
+      transition={{
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1],
+        delay: reduceMotion ? 0 : revealDelay,
+      }}
       className="group relative"
     >
-      <motion.div
+      <div
         className={`relative overflow-hidden rounded-2xl bg-navy/25 shadow-[0_14px_36px_rgba(0,0,0,0.3)] ${aspect}`}
-        animate={
-          reduceMotion
-            ? undefined
-            : {
-                y: [0, index % 2 === 0 ? -6 : 6, 0],
-              }
-        }
-        transition={
-          reduceMotion
-            ? undefined
-            : {
-                duration: 5.5 + (index % 3),
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: index * 0.15,
-              }
-        }
       >
         <GalleryMedia item={item} />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent" />
@@ -100,7 +103,7 @@ function CollageCard({ item, aspect, index }: { item: GalleryItem; aspect: strin
           {item.label}
         </p>
         {item.type === 'video' && <PlayBadge />}
-      </motion.div>
+      </div>
     </motion.article>
   )
 }
@@ -123,14 +126,18 @@ function ParallaxColumn({
       style={reduceMotion ? undefined : { y }}
       className={`flex min-w-0 flex-1 flex-col gap-3 ${className}`}
     >
-      {items.map((item, index) => (
-        <CollageCard
-          key={`${item.src}-${item.label}`}
-          item={item}
-          aspect={mobileAspects[(startIndex + index) % mobileAspects.length]}
-          index={startIndex + index}
-        />
-      ))}
+      {items.map((item, index) => {
+        const globalIndex = startIndex + index * 2
+        return (
+          <CollageCard
+            key={`${item.src}-${item.label}`}
+            item={item}
+            aspect={mobileAspects[(startIndex + index) % mobileAspects.length]}
+            index={globalIndex}
+            fromRight={startIndex === 1}
+          />
+        )
+      })}
     </motion.div>
   )
 }
