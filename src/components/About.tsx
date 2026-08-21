@@ -17,14 +17,14 @@ export function About() {
         items={[
           {
             src: '/img/stickers/shooting-star.png',
-            className: 'right-2 top-10 w-12 sm:right-6 sm:w-16 lg:right-8 lg:w-20',
+            className: 'right-1 top-6 w-9 sm:right-6 sm:top-10 sm:w-16 lg:right-8 lg:w-20',
             rotate: 12,
             delay: 0.2,
             duration: 5,
           },
           {
             src: '/img/stickers/sparkles.png',
-            className: 'left-2 bottom-24 hidden w-9 md:block lg:left-4 lg:w-11',
+            className: 'left-1 bottom-10 w-7 sm:left-4 sm:bottom-24 sm:w-9 md:w-11 lg:left-4 lg:w-11',
             rotate: -8,
             delay: 0.35,
             duration: 3.8,
@@ -48,7 +48,7 @@ export function About() {
                 src="/img/stickers/jesus-saves.png"
                 alt=""
                 aria-hidden="true"
-                className="sticker sticker-float pointer-events-none absolute -bottom-3 -left-3 w-24 sm:-left-5 sm:w-32"
+                className="sticker sticker-float pointer-events-none absolute -bottom-2 -left-2 w-16 sm:-bottom-3 sm:-left-5 sm:w-32"
                 style={{ ['--sticker-rotate' as string]: '-8deg' }}
               />
             </div>

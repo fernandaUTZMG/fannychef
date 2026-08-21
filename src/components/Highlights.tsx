@@ -19,13 +19,13 @@ export function Highlights() {
         items={[
           {
             src: '/img/stickers/chef-sticker.png',
-            className: 'right-1 top-6 w-20 sm:right-4 sm:w-28 lg:right-6 lg:w-32',
+            className: 'right-1 top-4 w-14 sm:right-4 sm:top-6 sm:w-28 lg:right-6 lg:w-32',
             rotate: 7,
             delay: 0.15,
           },
           {
             src: '/img/stickers/heart.png',
-            className: 'left-2 bottom-10 hidden w-10 md:block lg:left-4 lg:w-12',
+            className: 'left-1 bottom-6 w-8 sm:left-4 sm:bottom-10 sm:w-10 md:w-12 lg:left-4 lg:w-12',
             rotate: -10,
             delay: 0.3,
             duration: 4.5,

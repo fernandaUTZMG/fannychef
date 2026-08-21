@@ -1,4 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from 'framer-motion'
 import { FadeIn } from './FadeIn'
 import { FloatingStickers } from './FloatingStickers'
 import { SmartVideo } from './SmartVideo'
@@ -6,6 +13,15 @@ import { useLanguage } from '../i18n/LanguageContext'
 import type { Translations } from '../i18n/translations'
 
 type GalleryItem = Translations['gallery']['items'][number]
+
+const mobileAspects = [
+  'aspect-[3/4]',
+  'aspect-[4/5]',
+  'aspect-square',
+  'aspect-[5/6]',
+  'aspect-[3/4]',
+  'aspect-[4/3]',
+]
 
 function carouselSizeClasses(size: GalleryItem['size']) {
   switch (size) {
@@ -15,17 +31,6 @@ function carouselSizeClasses(size: GalleryItem['size']) {
       return 'w-[460px] aspect-[16/10]'
     default:
       return 'w-[300px] aspect-square'
-  }
-}
-
-function masonryAspect(size: GalleryItem['size']) {
-  switch (size) {
-    case 'tall':
-      return 'aspect-[3/4]'
-    case 'wide':
-      return 'aspect-[4/3]'
-    default:
-      return 'aspect-square'
   }
 }
 
@@ -58,16 +63,116 @@ function PlayBadge() {
   )
 }
 
-function MasonryTile({ item, delay }: { item: GalleryItem; delay: number }) {
+function CollageCard({ item, aspect, index }: { item: GalleryItem; aspect: string; index: number }) {
+  const reduceMotion = useReducedMotion()
+
   return (
-    <FadeIn delay={delay} className="mb-3 break-inside-avoid" y={20}>
-      <article
-        className={`group relative overflow-hidden rounded-[1.25rem] bg-navy/40 ${masonryAspect(item.size)}`}
+    <motion.article
+      initial={reduceMotion ? false : { opacity: 0, y: 28, scale: 0.97 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: (index % 4) * 0.05 }}
+      className="group relative"
+    >
+      <motion.div
+        className={`relative overflow-hidden rounded-2xl bg-navy/25 shadow-[0_14px_36px_rgba(0,0,0,0.3)] ${aspect}`}
+        animate={
+          reduceMotion
+            ? undefined
+            : {
+                y: [0, index % 2 === 0 ? -6 : 6, 0],
+              }
+        }
+        transition={
+          reduceMotion
+            ? undefined
+            : {
+                duration: 5.5 + (index % 3),
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: index * 0.15,
+              }
+        }
       >
         <GalleryMedia item={item} />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent" />
+        <p className="absolute bottom-2 left-2.5 right-2.5 truncate font-display text-[11px] font-medium text-cream/90">
+          {item.label}
+        </p>
         {item.type === 'video' && <PlayBadge />}
-      </article>
-    </FadeIn>
+      </motion.div>
+    </motion.article>
+  )
+}
+
+function ParallaxColumn({
+  items,
+  y,
+  startIndex,
+  className = '',
+}: {
+  items: GalleryItem[]
+  y: MotionValue<number>
+  startIndex: number
+  className?: string
+}) {
+  const reduceMotion = useReducedMotion()
+
+  return (
+    <motion.div
+      style={reduceMotion ? undefined : { y }}
+      className={`flex min-w-0 flex-1 flex-col gap-3 ${className}`}
+    >
+      {items.map((item, index) => (
+        <CollageCard
+          key={`${item.src}-${item.label}`}
+          item={item}
+          aspect={mobileAspects[(startIndex + index) % mobileAspects.length]}
+          index={startIndex + index}
+        />
+      ))}
+    </motion.div>
+  )
+}
+
+/** Mobile Savee-style collage: two columns drifting at different scroll speeds. */
+function MobileSaveeCollage({ items }: { items: GalleryItem[] }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const reduceMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  })
+
+  const yLeft = useTransform(scrollYProgress, [0, 1], [48, -72])
+  const yRight = useTransform(scrollYProgress, [0, 1], [-36, 64])
+
+  const left = items.filter((_, i) => i % 2 === 0)
+  const right = items.filter((_, i) => i % 2 === 1)
+
+  return (
+    <div ref={ref} className="relative z-10 mt-8 overflow-hidden px-3 pb-8 sm:hidden">
+      <div className="flex items-start gap-3 pb-10">
+        <ParallaxColumn
+          items={left}
+          y={yLeft}
+          startIndex={0}
+          className="pt-0"
+        />
+        <ParallaxColumn
+          items={right}
+          y={yRight}
+          startIndex={1}
+          className="pt-14"
+        />
+      </div>
+      {!reduceMotion && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-ink to-transparent"
+        />
+      )}
+    </div>
   )
 }
 
@@ -139,21 +244,21 @@ export function Gallery() {
         items={[
           {
             src: '/img/stickers/shooting-star.png',
-            className: 'right-2 top-10 w-12 sm:right-6 sm:w-16 lg:right-8 lg:w-20',
+            className: 'right-1 top-8 w-9 sm:right-6 sm:top-10 sm:w-16 lg:right-8 lg:w-20',
             rotate: 10,
             delay: 0.15,
             duration: 5,
           },
           {
             src: '/img/stickers/heart.png',
-            className: 'left-2 top-28 hidden w-10 md:block lg:left-4 lg:w-12',
+            className: 'left-1 top-24 w-8 sm:left-4 sm:top-28 sm:w-10 md:w-12 lg:left-4 lg:w-12',
             rotate: -10,
             delay: 0.3,
             duration: 4.5,
           },
           {
             src: '/img/stickers/sparkles.png',
-            className: 'left-3 bottom-16 w-9 sm:left-6 sm:bottom-24 sm:w-12',
+            className: 'left-2 bottom-10 w-7 sm:left-6 sm:bottom-24 sm:w-12',
             rotate: -8,
             delay: 0.4,
             duration: 3.8,
@@ -200,19 +305,11 @@ export function Gallery() {
         </FadeIn>
       </div>
 
-      {/* Mobile: masonry collage */}
-      <div className="mt-8 columns-2 gap-3 px-4 sm:hidden">
-        {gallery.map((item, index) => (
-          <MasonryTile
-            key={`${lang}-m-${item.src}-${item.label}`}
-            item={item}
-            delay={Math.min(index * 0.04, 0.28)}
-          />
-        ))}
-      </div>
+      {/* Mobile only: Savee-style living collage (not a carousel) */}
+      <MobileSaveeCollage items={gallery} />
 
       {/* Desktop: horizontal carousel */}
-      <FadeIn delay={0.08} className="hidden sm:block">
+      <FadeIn delay={0.08} className="relative z-10 hidden sm:block">
         <div
           ref={scrollerRef}
           className="touch-scroll no-scrollbar mt-10 flex items-start gap-5 overflow-x-auto px-8 pb-3 pt-1 snap-x snap-mandatory lg:px-[max(2rem,calc((100vw-72rem)/2+3rem))]"

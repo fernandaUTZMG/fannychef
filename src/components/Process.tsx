@@ -14,13 +14,13 @@ export function Process() {
         items={[
           {
             src: '/img/stickers/spatulas.png',
-            className: 'right-1 top-8 w-16 sm:right-4 sm:top-10 sm:w-24 lg:right-6 lg:w-28',
+            className: 'right-1 top-6 w-12 sm:right-4 sm:top-10 sm:w-24 lg:right-6 lg:w-28',
             rotate: 8,
             delay: 0.15,
           },
           {
             src: '/img/stickers/be-creative.png',
-            className: 'left-1 bottom-10 w-20 sm:left-4 sm:bottom-14 sm:w-28 lg:left-6 lg:w-32',
+            className: 'left-1 bottom-8 w-14 sm:left-4 sm:bottom-14 sm:w-28 lg:left-6 lg:w-32',
             rotate: -7,
             delay: 0.3,
           },

@@ -12,20 +12,20 @@ export function ChefPackage() {
         items={[
           {
             src: '/img/stickers/healthy-food.png',
-            className: 'right-1 top-8 w-16 sm:right-4 sm:top-10 sm:w-24 lg:right-6 lg:w-28',
+            className: 'right-1 top-6 w-12 sm:right-4 sm:top-10 sm:w-24 lg:right-6 lg:w-28',
             rotate: 6,
             delay: 0.2,
           },
           {
             src: '/img/stickers/heart.png',
-            className: 'left-2 top-[40%] hidden w-10 md:block lg:left-4 lg:w-12',
+            className: 'left-1 top-[42%] hidden w-10 md:block lg:left-4 lg:w-12',
             rotate: -12,
             delay: 0.35,
             duration: 4.5,
           },
           {
             src: '/img/stickers/sparkles.png',
-            className: 'left-3 bottom-8 w-8 sm:left-6 sm:w-10',
+            className: 'left-2 bottom-6 w-7 sm:left-6 sm:bottom-8 sm:w-10',
             rotate: 10,
             delay: 0.45,
             duration: 3.5,

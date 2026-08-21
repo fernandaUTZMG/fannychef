@@ -14,21 +14,21 @@ export function Membership() {
         items={[
           {
             src: '/img/stickers/heart.png',
-            className: 'right-2 top-8 w-11 sm:right-5 sm:top-10 sm:w-14 lg:right-8 lg:w-16',
+            className: 'right-1 top-6 w-9 sm:right-5 sm:top-10 sm:w-14 lg:right-8 lg:w-16',
             rotate: 8,
             delay: 0.15,
             duration: 4.5,
           },
           {
             src: '/img/stickers/shooting-star.png',
-            className: 'left-2 top-24 hidden w-12 md:block lg:left-4 lg:w-16',
+            className: 'left-1 top-20 w-9 sm:left-4 sm:top-24 sm:w-12 md:w-16 lg:left-4 lg:w-16',
             rotate: -6,
             delay: 0.3,
             duration: 5,
           },
           {
             src: '/img/stickers/sparkles.png',
-            className: 'right-4 bottom-8 hidden w-9 lg:block',
+            className: 'right-3 bottom-6 hidden w-9 lg:block',
             rotate: 14,
             delay: 0.4,
             duration: 3.7,

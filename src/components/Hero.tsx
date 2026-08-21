@@ -49,13 +49,13 @@ export function Hero() {
         items={[
           {
             src: '/img/stickers/sun.png',
-            className: 'right-2 top-20 w-14 sm:right-6 sm:top-24 sm:w-20 lg:right-10 lg:w-24',
+            className: 'right-2 top-20 w-12 sm:right-6 sm:top-24 sm:w-20 lg:right-10 lg:w-24',
             rotate: 8,
             delay: 0.35,
           },
           {
             src: '/img/stickers/sparkles.png',
-            className: 'left-2 top-28 hidden w-9 sm:block lg:left-6 lg:w-12',
+            className: 'left-2 top-24 w-7 sm:left-6 sm:top-28 sm:w-12 lg:w-12',
             rotate: -12,
             delay: 0.5,
             duration: 4,

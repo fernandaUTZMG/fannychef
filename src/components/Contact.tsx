@@ -62,20 +62,20 @@ export function Contact() {
         items={[
           {
             src: '/img/stickers/constellation.png',
-            className: 'right-2 top-8 w-24 sm:right-5 sm:top-10 sm:w-36 lg:right-8 lg:w-44',
+            className: 'right-1 top-6 w-16 sm:right-5 sm:top-10 sm:w-36 lg:right-8 lg:w-44',
             rotate: 3,
             delay: 0.15,
           },
           {
             src: '/img/stickers/shooting-star.png',
-            className: 'left-2 bottom-12 hidden w-12 md:block lg:left-4 lg:w-16',
+            className: 'left-1 bottom-10 w-9 sm:left-4 sm:bottom-12 sm:w-12 md:w-16 lg:left-4 lg:w-16',
             rotate: -8,
             delay: 0.3,
             duration: 5,
           },
           {
             src: '/img/stickers/heart.png',
-            className: 'right-6 bottom-20 hidden w-10 lg:block',
+            className: 'right-4 bottom-16 hidden w-10 lg:block',
             rotate: 12,
             delay: 0.4,
             duration: 4.5,
