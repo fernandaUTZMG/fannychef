@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Sensitive / local docs (quotes with client & payment data)
+*.pdf
+src/_pdf_preview/
+

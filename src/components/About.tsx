@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { FadeIn } from './FadeIn'
+import { FloatingStickers } from './FloatingStickers'
 import { brand } from '../i18n/translations'
 import { useLanguage } from '../i18n/LanguageContext'
 
@@ -12,15 +13,43 @@ export function About() {
       <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-violet/30 blur-3xl" />
       <div className="pointer-events-none absolute -right-16 bottom-10 h-80 w-80 rounded-full bg-coral/20 blur-3xl" />
 
-      <div className="section-pad section-max relative">
+      <FloatingStickers
+        items={[
+          {
+            src: '/img/stickers/shooting-star.png',
+            className: 'right-2 top-10 w-12 sm:right-6 sm:w-16 lg:right-8 lg:w-20',
+            rotate: 12,
+            delay: 0.2,
+            duration: 5,
+          },
+          {
+            src: '/img/stickers/sparkles.png',
+            className: 'left-2 bottom-24 hidden w-9 md:block lg:left-4 lg:w-11',
+            rotate: -8,
+            delay: 0.35,
+            duration: 3.8,
+          },
+        ]}
+      />
+
+      <div className="section-pad section-max relative z-10">
         <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
           <FadeIn delay={0.05} className="order-1 lg:order-2">
-            <div className="mx-auto max-w-md overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] lg:max-w-none">
+            <div className="relative mx-auto max-w-md lg:max-w-none">
+              <div className="overflow-hidden rounded-[1.5rem] sm:rounded-[2rem]">
+                <img
+                  src="/img/ella.jpeg"
+                  alt={brand.founder}
+                  className="aspect-[4/5] w-full object-cover object-top"
+                  loading="lazy"
+                />
+              </div>
               <img
-                src="/img/ella.jpeg"
-                alt={brand.founder}
-                className="aspect-[4/5] w-full object-cover object-top"
-                loading="lazy"
+                src="/img/stickers/jesus-saves.png"
+                alt=""
+                aria-hidden="true"
+                className="sticker sticker-float pointer-events-none absolute -bottom-3 -left-3 w-24 sm:-left-5 sm:w-32"
+                style={{ ['--sticker-rotate' as string]: '-8deg' }}
               />
             </div>
           </FadeIn>
@@ -46,6 +75,30 @@ export function About() {
               — {brand.founder}
             </p>
           </FadeIn>
+        </div>
+
+        <div className="mt-14 sm:mt-16">
+          <FadeIn>
+            <p className="font-display text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+              {t.about.valuesEyebrow}
+            </p>
+            <h3 className="mt-2 font-display text-xl font-bold tracking-tight sm:text-2xl">
+              {t.about.valuesTitle}
+            </h3>
+          </FadeIn>
+
+          <div className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2">
+            {t.about.values.map((value, index) => (
+              <FadeIn key={value.title} delay={index * 0.05}>
+                <div className="border-l-2 border-gold/60 pl-4">
+                  <p className="font-display text-base font-bold text-sky sm:text-lg">{value.title}</p>
+                  <p className="mt-1.5 font-display text-sm leading-relaxed text-cream/75 sm:text-[0.95rem]">
+                    {value.copy}
+                  </p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
         </div>
 
         <div className="mt-14 sm:mt-16">

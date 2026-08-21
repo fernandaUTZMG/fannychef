@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { FadeIn } from './FadeIn'
+import { FloatingStickers } from './FloatingStickers'
 import { SmartVideo } from './SmartVideo'
 import { useLanguage } from '../i18n/LanguageContext'
 import type { Translations } from '../i18n/translations'
@@ -133,8 +134,34 @@ export function Gallery() {
   }
 
   return (
-    <section id="galeria" className="overflow-hidden bg-ink py-16 text-cream sm:py-28">
-      <div className="section-pad section-max">
+    <section id="galeria" className="relative overflow-hidden bg-ink py-16 text-cream sm:py-28">
+      <FloatingStickers
+        items={[
+          {
+            src: '/img/stickers/shooting-star.png',
+            className: 'right-2 top-10 w-12 sm:right-6 sm:w-16 lg:right-8 lg:w-20',
+            rotate: 10,
+            delay: 0.15,
+            duration: 5,
+          },
+          {
+            src: '/img/stickers/heart.png',
+            className: 'left-2 top-28 hidden w-10 md:block lg:left-4 lg:w-12',
+            rotate: -10,
+            delay: 0.3,
+            duration: 4.5,
+          },
+          {
+            src: '/img/stickers/sparkles.png',
+            className: 'left-3 bottom-16 w-9 sm:left-6 sm:bottom-24 sm:w-12',
+            rotate: -8,
+            delay: 0.4,
+            duration: 3.8,
+          },
+        ]}
+      />
+
+      <div className="section-pad section-max relative z-10">
         <FadeIn>
           <div className="flex flex-col gap-5 sm:gap-6 md:flex-row md:items-end md:justify-between">
             <div>

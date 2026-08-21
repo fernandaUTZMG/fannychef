@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { FadeIn } from './FadeIn'
+import { FloatingStickers } from './FloatingStickers'
 import { useLanguage } from '../i18n/LanguageContext'
 
 export function Process() {
@@ -8,13 +9,37 @@ export function Process() {
   const reduceMotion = useReducedMotion()
 
   return (
-    <section id="proceso" className="bg-sky/35 py-16 sm:py-28">
-      <div className="section-pad section-max">
+    <section id="method" className="relative overflow-hidden bg-sky/35 py-16 sm:py-28">
+      <FloatingStickers
+        items={[
+          {
+            src: '/img/stickers/spatulas.png',
+            className: 'right-1 top-8 w-16 sm:right-4 sm:top-10 sm:w-24 lg:right-6 lg:w-28',
+            rotate: 8,
+            delay: 0.15,
+          },
+          {
+            src: '/img/stickers/be-creative.png',
+            className: 'left-1 bottom-10 w-20 sm:left-4 sm:bottom-14 sm:w-28 lg:left-6 lg:w-32',
+            rotate: -7,
+            delay: 0.3,
+          },
+          {
+            src: '/img/stickers/sparkles.png',
+            className: 'left-[20%] top-16 hidden w-8 lg:block',
+            rotate: 10,
+            delay: 0.4,
+            duration: 3.6,
+          },
+        ]}
+      />
+
+      <div className="section-pad section-max relative z-10">
         <FadeIn>
           <p className="font-display text-sm font-semibold uppercase tracking-[0.2em] text-navy/70">
             {t.process.eyebrow}
           </p>
-          <h2 className="mt-3 max-w-3xl font-display text-[1.85rem] font-bold tracking-tight text-navy text-balance sm:text-4xl md:text-5xl">
+          <h2 className="mt-3 max-w-4xl font-display text-[1.65rem] font-extrabold tracking-tight text-navy text-balance sm:text-4xl md:text-5xl">
             {t.process.title}
           </h2>
         </FadeIn>

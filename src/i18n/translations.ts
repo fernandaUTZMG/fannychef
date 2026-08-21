@@ -30,6 +30,42 @@ export type Translations = {
     title: string
     intro: string
     items: { title: string; copy: string; media: string }[]
+    benefitsEyebrow: string
+    benefitsTitle: string
+    benefits: { title: string; copy: string }[]
+  }
+  package: {
+    eyebrow: string
+    title: string
+    intro: string
+    modalityLabel: string
+    modality: string
+    planLabel: string
+    plan: string
+    durationLabel: string
+    duration: string
+    orderEyebrow: string
+    orderTitle: string
+    orderColService: string
+    orderColIncluded: string
+    order: { label: string; value: string }[]
+    importantLabel: string
+    important: string
+    investmentEyebrow: string
+    investmentTitle: string
+    monthlyLabel: string
+    monthlyAmount: string
+    monthlyNote: string
+    paymentEyebrow: string
+    paymentTitle: string
+    payments: { label: string; amount: string; note: string }[]
+    conceptLabel: string
+    concept: string
+    confirmEyebrow: string
+    confirmTitle: string
+    confirmBody: string
+    confirmPaymentNote: string
+    confirmCta: string
   }
   about: {
     eyebrow: string
@@ -37,6 +73,9 @@ export type Translations = {
     titleAfter: string
     p1: string
     p2: string
+    valuesEyebrow: string
+    valuesTitle: string
+    values: { title: string; copy: string }[]
     pathEyebrow: string
     pathTitle: string
     timeline: { year: string; text: string }[]
@@ -49,6 +88,12 @@ export type Translations = {
     priceNote: string
     join: string
     includes: string[]
+    cardBrand: string
+    cardTitle: string
+    cardSubtitle: string
+    cardMeta: string
+    cardFooter: string
+    cardWelcome: string
   }
   process: {
     eyebrow: string
@@ -104,77 +149,173 @@ export const translations: Record<Lang, Translations> = {
     nav: [
       { href: '#servicios', label: 'Servicios' },
       { href: '#sobre-mi', label: 'Sobre mí' },
+      { href: '#chef-domicilio', label: 'Paquete' },
       { href: '#membresia', label: 'Membership' },
-      { href: '#proceso', label: 'Proceso' },
+      { href: '#method', label: 'Method' },
       { href: '#contacto', label: 'Contacto' },
     ],
     cta: 'Agenda tu valoración',
     hero: {
       tagline: 'membership',
-      subtitle: 'Yo resuelvo por ti: comida rica, orden y calma en tu cocina.',
+      subtitle: 'Tu semana, organizada desde la cocina: alimentación, orden y cuidado en un solo servicio.',
       primary: 'Agenda tu valoración',
       secondary: 'Conoce la membresía',
     },
     services: {
-      eyebrow: 'Lo que vas a sentir',
-      title: 'No solo cocino. Te hago la vida más ligera.',
-      intro: 'Elige cómo quieres que te ayude. Servicio serio, trato cercano, a tu ritmo.',
+      eyebrow: 'Servicios',
+      title: 'No solo cocino. Armo un sistema que te cuida.',
+      intro:
+        'Chef privada, planeación y cuidado profesional de tu cocina. Tú eliges la modalidad; yo adapto el plan a tu rutina, gustos y objetivos.',
       items: [
         {
           title: 'Chef a domicilio',
-          copy: 'Cocino en tu casa, porciono, etiqueto y dejo todo guardado. Tú solo abres el refri y sonríes.',
+          copy: 'Paquete mensual con 3 visitas, 24 comidas y orden completa. Mira el detalle de inversión y pagos más abajo.',
           media: '/img/5.jpeg',
         },
         {
           title: 'Meal prep semanal',
-          copy: 'Preparo tu plan de comidas y te lo dejo listo para la semana, sin drama y con mucho sabor.',
+          copy: 'Preparo y entrego tus comidas bajo un plan acordado: sabor, porciones claras y cero improvisación.',
           media: '/img/platillo.jpeg',
         },
         {
           title: 'Compra de insumos',
-          copy: 'Elijo ingredientes con ojo de chef: frescos, ricos y justos para lo que vamos a cocinar.',
+          copy: 'Selecciono ingredientes con control de calidad: frescos, adecuados y justos para tu menú.',
           media: '/img/4.jpeg',
         },
         {
           title: 'Organización de cocina',
-          copy: 'Acomodo tu cocina para que funcione de verdad. Menos caos, más calma.',
+          copy: 'Ordeno refrigerador, alacena y zonas de trabajo para que tu cocina sea funcional y fácil de vivir.',
           media: '/img/3.jpeg',
         },
         {
           title: 'Limpieza y mantenimiento',
-          copy: 'Dejamos el espacio limpio, fresco y listo para el siguiente round.',
+          copy: 'Servicio programado para conservar higiene, orden y un espacio listo para el siguiente servicio.',
           media: '/img/8.jpeg',
         },
         {
           title: 'Membership',
-          copy: 'La experiencia completa: visitas, seguimiento y cuidados extras, todo en un solo plan.',
+          copy: 'La experiencia continua: visitas, seguimiento, organización y beneficios mensuales en un solo plan.',
           media: '/img/7.jpeg',
         },
       ],
+      benefitsEyebrow: 'Lo que ganas',
+      benefitsTitle: 'Menos carga diaria. Más tranquilidad.',
+      benefits: [
+        {
+          title: 'Tiempo de vuelta',
+          copy: 'Dejas de planear, comprar, cocinar y limpiar cada día. Recuperas horas para lo que importa.',
+        },
+        {
+          title: 'Semana bajo control',
+          copy: 'Menú, checklist y etiquetas: menos improvisación y menos pedidos de último minuto.',
+        },
+        {
+          title: 'Cocina que funciona',
+          copy: 'Un espacio limpio, ordenado y fácil de mantener, listo para tu ritmo real.',
+        },
+        {
+          title: 'Cuidado personal',
+          copy: 'Atención a tu medida — no un menú genérico — con seguimiento cercano y discreto.',
+        },
+      ],
+    },
+    package: {
+      eyebrow: 'Paquete de servicio',
+      title: 'Chef a domicilio',
+      intro:
+        'Este es el paquete base que maneja The Fanny Chef: orden de servicio, inversión y esquema de pagos. Lo afinamos a tu hogar en la valoración.',
+      modalityLabel: 'Modalidad',
+      modality: 'Chef a domicilio',
+      planLabel: 'Plan',
+      plan: 'Mensual',
+      durationLabel: 'Vigencia',
+      duration: '4 semanas',
+      orderEyebrow: 'Orden de servicio',
+      orderTitle: 'Menú de servicios incluidos',
+      orderColService: 'Incluye',
+      orderColIncluded: 'Detalle',
+      order: [
+        { label: 'Número de personas', value: '1–2' },
+        { label: 'Visitas semanales', value: '3 · Lunes · Miércoles · Viernes' },
+        {
+          label: 'Comidas preparadas',
+          value: '24 · Lun–Sáb · Desayuno, comida, cena y snack',
+        },
+        { label: 'Planeación de menú', value: 'Analizamos tu plan de alimentación' },
+        { label: 'Insumos', value: 'Crédito de $2,500 mensuales' },
+        { label: 'Porcionado y etiquetado', value: 'Incluido' },
+        { label: 'Mantenimiento de cocina', value: 'Incluido' },
+        { label: 'Limpieza del área utilizada', value: 'Incluido' },
+      ],
+      importantLabel: 'Importante:',
+      important:
+        'Cualquier servicio, alimento, visita, evento, entrega o requerimiento adicional que no aparezca en esta orden se cotiza por separado antes de realizarse.',
+      investmentEyebrow: 'Inversión y esquema de pago',
+      investmentTitle: 'Así se estructura el paquete',
+      monthlyLabel: 'Inversión mensual',
+      monthlyAmount: '$30,000 MXN',
+      monthlyNote: 'Referencia del paquete chef a domicilio. El alcance final se confirma en tu orden.',
+      paymentEyebrow: 'Esquema de pagos',
+      paymentTitle: 'Cuatro pagos durante el mes',
+      payments: [
+        { label: 'Pago #1', amount: '$7,000', note: 'Transferencia o depósito · fecha acordada' },
+        { label: 'Pago #2', amount: '$7,000', note: 'Efectivo · fecha acordada' },
+        { label: 'Pago #3', amount: '$7,000', note: 'Transferencia o depósito · fecha acordada' },
+        { label: 'Pago #4', amount: '$7,000', note: 'Efectivo · fecha acordada' },
+      ],
+      conceptLabel: 'Concepto de transferencia:',
+      concept: 'TFC + tu nombre (ejemplo: TFC MARIA G).',
+      confirmEyebrow: 'Confirmación del servicio',
+      confirmTitle: '¡Tu servicio está listo!',
+      confirmBody:
+        'Al realizar el pago correspondiente se confirma la aceptación de la orden de servicio y se reserva la programación acordada. Nosotros nos encargamos de tu alimentación para que tú recuperes tiempo y salud.',
+      confirmPaymentNote:
+        'Los datos de pago (cuenta o tarjeta) se comparten de forma privada al confirmar tu servicio. No se publican en esta página.',
+      confirmCta: 'Solicitar mi orden de servicio',
     },
     about: {
       eyebrow: 'Sobre mí',
       titleBefore: 'Soy Stephy. Acapulqueña de corazón y fundadora de',
       titleAfter: '.',
-      p1: 'Pasé por Guadalajara, Alicante, cocinas Michelin y hoteles cuatro diamantes. Hoy sé que alimentar a alguien no es solo un platillo: es escuchar, organizar y hacerte la vida más fácil.',
-      p2: 'Mi fe es el corazón de esta marca. Sirvo con cariño, excelencia y propósito, siempre respetando lo que tú quieres.',
+      p1: 'En 2014 dejé Acapulco para estudiar Gastronomía Internacional en Guadalajara. Mi camino me llevó a Alicante —Monastrell, una estrella Michelin— y a hoteles cuatro diamantes como Royal Hideaway Playacar. Ahí aprendí precisión, disciplina y hospitalidad de verdad.',
+      p2: 'Hoy sé que alimentar a alguien va más allá de un platillo: es escuchar, organizar y hacer más ligera su vida. Mi fe cristiana es el corazón de esta marca; sirvo con excelencia, amor y propósito, siempre respetando lo que tú quieres.',
+      valuesEyebrow: 'Valores',
+      valuesTitle: 'Así trabajo contigo.',
+      values: [
+        {
+          title: 'Excelencia',
+          copy: 'Cada detalle —del ingrediente al cierre de cocina— con disciplina y alto estándar.',
+        },
+        {
+          title: 'Servicio con propósito',
+          copy: 'Cuidarte es el centro. Fe y humildad inspiran el cómo, sin imponer creencias.',
+        },
+        {
+          title: 'Personalización',
+          copy: 'No hay dos hogares iguales: el plan sigue tu rutina, gustos y objetivos.',
+        },
+        {
+          title: 'Orden y bienestar',
+          copy: 'Planeación, higiene y seguimiento para que comer bien se sienta ligero y sostenible.',
+        },
+      ],
       pathEyebrow: 'Trayectoria',
       pathTitle: 'El camino hasta The Fanny Chef',
       timeline: [
-        { year: '2014', text: 'Empecé Gastronomía Internacional en Guadalajara.' },
-        { year: '2016', text: 'Prácticas en Royal Hideaway Playacar (hotel cuatro diamantes).' },
+        { year: '2014', text: 'Ingreso a Gastronomía Internacional en la UVM Guadalajara Sur.' },
+        { year: '2016', text: 'Seis meses en Royal Hideaway Playacar: cocina mexicana, italiana, repostería y de autor.' },
         { year: '2018', text: 'Alicante: Monastrell (estrella Michelin) y La Taberna del Gourmet.' },
-        { year: '2022–23', text: 'Asesoría fine dining en L´TOsteria y La Vaca Argentina.' },
-        { year: '2025', text: 'Nace The Fanny Chef: chef privada con propósito.' },
+        { year: '2022–23', text: 'Asesoría fine dining en L’Osteria y La Vaca Argentina.' },
+        { year: '2025', text: 'Nace The Fanny Chef: chef privada con propósito en Guadalajara.' },
       ],
     },
     membership: {
-      eyebrow: 'Para quienes quieren delegar con confianza',
+      eyebrow: 'Membership of the Sky',
       title: 'The Fanny Chef',
-      body: 'No es solo comida lista. Es tener a alguien que piensa tu semana, cocina con cariño y te deja la cocina en orden — como una anfitriona que sí sabe de técnica.',
+      body: 'Membership of the Sky es la experiencia continua: alimentación, orden y cuidado bajo un mismo plan. Chef a domicilio es una modalidad; aquí ves el plan integral con seguimiento.',
       from: 'Desde',
       priceNote:
-        'Como referencia: unos $10,500 por semana. Lo afinamos juntas según tu volumen, frecuencia y lo que realmente necesitas.',
+        'Referencia del plan integral. Modalidades como chef a domicilio se cotizan aparte según personas, visitas y alcance.',
       join: 'Únete a la membresía',
       includes: [
         '3 visitas de chef a la semana',
@@ -190,35 +331,41 @@ export const translations: Record<Lang, Translations> = {
         '1 evento o catering privado al mes',
         'Acompañamiento espiritual, solo si lo deseas',
       ],
+      cardWelcome: 'welcome to',
+      cardBrand: 'THE FANNY CHEF',
+      cardTitle: 'membership of the sky',
+      cardSubtitle: 'Virtual member card',
+      cardMeta: 'Guadalajara · Zona metropolitana',
+      cardFooter: 'Orden · bienestar · propósito',
     },
     process: {
-      eyebrow: 'Cómo funciona',
-      title: 'Simple, claro y sin rodeos.',
+      eyebrow: 'Así trabajamos cada semana',
+      title: 'THE FANNY CHEF METHOD',
       steps: [
         {
           step: '01',
-          title: 'Cuéntame de ti',
-          copy: 'Un formulito corto: dónde estás, qué necesitas y cómo se ve tu día a día.',
+          title: 'Planear',
+          copy: 'Planeación semanal y revisión de tu menú o plan de alimentación.',
         },
         {
           step: '02',
-          title: 'Hablamos',
-          copy: 'Por WhatsApp afinamos objetivos, gustos, ritmos y cualquier restricción.',
+          title: 'Comprar',
+          copy: 'Lista de compras y selección de insumos, cuando aplique a tu plan.',
         },
         {
           step: '03',
-          title: 'Valoración',
-          copy: 'Revisamos tu cocina y diseñamos un plan que sí se pueda vivir.',
+          title: 'Preparar',
+          copy: 'Preparación profesional, porcionado a tu medida y etiquetado con fecha.',
         },
         {
           step: '04',
-          title: 'Propuesta a tu medida',
-          copy: 'Te mando claro qué incluye, cómo trabajamos y la inversión final.',
+          title: 'Organizar',
+          copy: 'Alimentos en orden en refrigerador, congelador y alacena; cocina limpia.',
         },
         {
           step: '05',
-          title: '¡Arrancamos!',
-          copy: 'Empiezan las visitas, el menú y ese orden que se siente desde el día uno.',
+          title: 'Seguir',
+          copy: 'Seguimiento semanal, retroalimentación y ajustes antes del próximo servicio.',
         },
       ],
     },
@@ -364,77 +511,173 @@ export const translations: Record<Lang, Translations> = {
     nav: [
       { href: '#servicios', label: 'Services' },
       { href: '#sobre-mi', label: 'About' },
+      { href: '#chef-domicilio', label: 'Package' },
       { href: '#membresia', label: 'Membership' },
-      { href: '#proceso', label: 'Process' },
+      { href: '#method', label: 'Method' },
       { href: '#contacto', label: 'Contact' },
     ],
     cta: 'Book your valuation',
     hero: {
       tagline: 'membership',
-      subtitle: 'I take care of it for you: great food, order, and calm in your kitchen.',
+      subtitle: 'Your week, organized from the kitchen: food, order, and care in one service.',
       primary: 'Book your valuation',
       secondary: 'Discover membership',
     },
     services: {
-      eyebrow: 'What you’ll feel',
-      title: 'I don’t just cook. I make life lighter.',
-      intro: 'Choose how you want me to help. Serious service, warm care, at your pace.',
+      eyebrow: 'Services',
+      title: 'I don’t just cook. I build a system that takes care of you.',
+      intro:
+        'Private chef, meal planning, and professional care of your kitchen. You choose the format; I adapt the plan to your routine, tastes, and goals.',
       items: [
         {
           title: 'Private chef at home',
-          copy: 'I cook in your home, portion, label, and store everything. You just open the fridge and smile.',
+          copy: 'Monthly package with 3 visits, 24 meals, and a full service order. See investment and payments below.',
           media: '/img/5.jpeg',
         },
         {
           title: 'Weekly meal prep',
-          copy: 'I prep your meal plan and leave it ready for the week—easy, delicious, no stress.',
+          copy: 'I prepare and deliver meals under an agreed plan: flavor, clear portions, zero improvisation.',
           media: '/img/platillo.jpeg',
         },
         {
           title: 'Grocery sourcing',
-          copy: 'I choose ingredients with a chef’s eye: fresh, flavorful, and right for what we’ll cook.',
+          copy: 'I select ingredients with quality control: fresh, right for your menu, and thoughtfully chosen.',
           media: '/img/4.jpeg',
         },
         {
           title: 'Kitchen organization',
-          copy: 'I set up your kitchen so it truly works. Less chaos, more calm.',
+          copy: 'I organize fridge, pantry, and work zones so your kitchen is functional and easy to live in.',
           media: '/img/3.jpeg',
         },
         {
           title: 'Cleaning & upkeep',
-          copy: 'We leave the space clean, fresh, and ready for the next round.',
+          copy: 'Scheduled service to keep hygiene, order, and a space ready for the next visit.',
           media: '/img/8.jpeg',
         },
         {
           title: 'Membership',
-          copy: 'The full experience: visits, follow-up, and extra care—all in one plan.',
+          copy: 'The continuous experience: visits, follow-up, organization, and monthly benefits in one plan.',
           media: '/img/7.jpeg',
         },
       ],
+      benefitsEyebrow: 'What you gain',
+      benefitsTitle: 'Less daily load. More peace of mind.',
+      benefits: [
+        {
+          title: 'Time back',
+          copy: 'Stop planning, shopping, cooking, and cleaning every day. Reclaim hours for what matters.',
+        },
+        {
+          title: 'A week under control',
+          copy: 'Menu, checklist, and labels: less improvisation and fewer last-minute orders.',
+        },
+        {
+          title: 'A kitchen that works',
+          copy: 'A clean, ordered space that’s easy to maintain—ready for your real rhythm.',
+        },
+        {
+          title: 'Personal care',
+          copy: 'Service tailored to you—not a generic menu—with close, discreet follow-up.',
+        },
+      ],
+    },
+    package: {
+      eyebrow: 'Service package',
+      title: 'Private chef at home',
+      intro:
+        'This is the base package The Fanny Chef offers: service order, investment, and payment plan. We tailor it to your home during the valuation.',
+      modalityLabel: 'Modality',
+      modality: 'Private chef at home',
+      planLabel: 'Plan',
+      plan: 'Monthly',
+      durationLabel: 'Term',
+      duration: '4 weeks',
+      orderEyebrow: 'Service order',
+      orderTitle: 'Included services menu',
+      orderColService: 'Includes',
+      orderColIncluded: 'Detail',
+      order: [
+        { label: 'Number of people', value: '1–2' },
+        { label: 'Weekly visits', value: '3 · Monday · Wednesday · Friday' },
+        {
+          label: 'Prepared meals',
+          value: '24 · Mon–Sat · Breakfast, lunch, dinner, and snack',
+        },
+        { label: 'Menu planning', value: 'We review your nutrition plan' },
+        { label: 'Groceries', value: '$2,500 monthly credit' },
+        { label: 'Portioning & labeling', value: 'Included' },
+        { label: 'Kitchen upkeep', value: 'Included' },
+        { label: 'Cleaning of used area', value: 'Included' },
+      ],
+      importantLabel: 'Important:',
+      important:
+        'Any service, food, visit, event, delivery, or extra request not listed in this order is quoted separately before it is done.',
+      investmentEyebrow: 'Investment & payment plan',
+      investmentTitle: 'How the package is structured',
+      monthlyLabel: 'Monthly investment',
+      monthlyAmount: '$30,000 MXN',
+      monthlyNote: 'Reference for the private-chef-at-home package. Final scope is confirmed in your order.',
+      paymentEyebrow: 'Payment schedule',
+      paymentTitle: 'Four payments during the month',
+      payments: [
+        { label: 'Payment #1', amount: '$7,000', note: 'Transfer or deposit · agreed date' },
+        { label: 'Payment #2', amount: '$7,000', note: 'Cash · agreed date' },
+        { label: 'Payment #3', amount: '$7,000', note: 'Transfer or deposit · agreed date' },
+        { label: 'Payment #4', amount: '$7,000', note: 'Cash · agreed date' },
+      ],
+      conceptLabel: 'Transfer concept:',
+      concept: 'TFC + your name (example: TFC MARIA G).',
+      confirmEyebrow: 'Service confirmation',
+      confirmTitle: 'Your service is ready!',
+      confirmBody:
+        'When the corresponding payment is made, the service order is accepted and the agreed schedule is reserved. We take care of your meals so you recover time and health.',
+      confirmPaymentNote:
+        'Payment details (account or card) are shared privately when your service is confirmed. They are not published on this page.',
+      confirmCta: 'Request my service order',
     },
     about: {
       eyebrow: 'About me',
       titleBefore: 'I’m Stephy. Acapulco at heart and founder of',
       titleAfter: '.',
-      p1: 'I’ve worked through Guadalajara, Alicante, Michelin kitchens, and four-diamond hotels. Today I know feeding someone isn’t just a plate—it’s listening, organizing, and making life easier.',
-      p2: 'My faith is the heart of this brand. I serve with care, excellence, and purpose—always respecting what you want.',
+      p1: 'In 2014 I left Acapulco to study International Gastronomy in Guadalajara. The path took me to Alicante—Monastrell, a Michelin-starred kitchen—and four-diamond hotels like Royal Hideaway Playacar. There I learned precision, discipline, and real hospitality.',
+      p2: 'Today I know feeding someone goes beyond a plate: it’s listening, organizing, and making life lighter. My Christian faith is the heart of this brand; I serve with excellence, love, and purpose—always respecting what you want.',
+      valuesEyebrow: 'Values',
+      valuesTitle: 'How I work with you.',
+      values: [
+        {
+          title: 'Excellence',
+          copy: 'Every detail—from ingredient to kitchen close-out—with discipline and a high standard.',
+        },
+        {
+          title: 'Purpose-led service',
+          copy: 'Caring for you is the center. Faith and humility shape the how, without imposing beliefs.',
+        },
+        {
+          title: 'Personalization',
+          copy: 'No two homes are alike: the plan follows your routine, tastes, and goals.',
+        },
+        {
+          title: 'Order & wellbeing',
+          copy: 'Planning, hygiene, and follow-up so eating well feels light and sustainable.',
+        },
+      ],
       pathEyebrow: 'Journey',
       pathTitle: 'The path to The Fanny Chef',
       timeline: [
-        { year: '2014', text: 'Started International Gastronomy studies in Guadalajara.' },
-        { year: '2016', text: 'Internship at Royal Hideaway Playacar (four-diamond hotel).' },
+        { year: '2014', text: 'Started International Gastronomy at UVM Guadalajara Sur.' },
+        { year: '2016', text: 'Six months at Royal Hideaway Playacar: Mexican, Italian, pastry, and signature kitchens.' },
         { year: '2018', text: 'Alicante: Monastrell (Michelin star) and La Taberna del Gourmet.' },
-        { year: '2022–23', text: 'Fine-dining consulting at L´TOsteria and La Vaca Argentina.' },
-        { year: '2025', text: 'The Fanny Chef begins: private chef with purpose.' },
+        { year: '2022–23', text: 'Fine-dining consulting at L’Osteria and La Vaca Argentina.' },
+        { year: '2025', text: 'The Fanny Chef begins: private chef with purpose in Guadalajara.' },
       ],
     },
     membership: {
-      eyebrow: 'For those who want to delegate with trust',
+      eyebrow: 'Membership of the Sky',
       title: 'The Fanny Chef',
-      body: 'It’s not just ready meals. It’s someone who plans your week, cooks with care, and leaves your kitchen in order—like a host who truly knows technique.',
+      body: 'Membership of the Sky is the continuous experience: food, order, and care under one plan. Private chef at home is one modality; here you see the full plan with follow-up.',
       from: 'From',
       priceNote:
-        'As a reference: about $10,500 MXN per week. We refine it together based on volume, frequency, and what you actually need.',
+        'Reference for the full plan. Modalities like private chef at home are quoted separately by people, visits, and scope.',
       join: 'Join the membership',
       includes: [
         '3 chef visits per week',
@@ -450,35 +693,41 @@ export const translations: Record<Lang, Translations> = {
         '1 private event or catering per month',
         'Spiritual support, only if you want it',
       ],
+      cardWelcome: 'welcome to',
+      cardBrand: 'THE FANNY CHEF',
+      cardTitle: 'membership of the sky',
+      cardSubtitle: 'Virtual member card',
+      cardMeta: 'Guadalajara · Metro area',
+      cardFooter: 'Order · wellbeing · purpose',
     },
     process: {
-      eyebrow: 'How it works',
-      title: 'Simple, clear, and straightforward.',
+      eyebrow: 'How we work each week',
+      title: 'THE FANNY CHEF METHOD',
       steps: [
         {
           step: '01',
-          title: 'Tell me about you',
-          copy: 'A short form: where you are, what you need, and how your days look.',
+          title: 'Plan',
+          copy: 'Weekly planning and review of your menu or nutrition plan.',
         },
         {
           step: '02',
-          title: 'We talk',
-          copy: 'On WhatsApp we refine goals, tastes, rhythms, and any restrictions.',
+          title: 'Shop',
+          copy: 'Shopping list and ingredient selection, when included in your plan.',
         },
         {
           step: '03',
-          title: 'Valuation',
-          copy: 'We review your kitchen and design a plan you can actually live with.',
+          title: 'Prep',
+          copy: 'Professional cooking, portioning to your needs, and dating labels.',
         },
         {
           step: '04',
-          title: 'Custom proposal',
-          copy: 'I send clear inclusions, how we work, and the final investment.',
+          title: 'Organize',
+          copy: 'Food ordered in fridge, freezer, and pantry; kitchen left clean.',
         },
         {
           step: '05',
-          title: 'We start!',
-          copy: 'Visits begin, the menu kicks in, and that calm order shows from day one.',
+          title: 'Follow up',
+          copy: 'Weekly follow-up, feedback, and adjustments before the next service.',
         },
       ],
     },

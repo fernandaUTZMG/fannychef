@@ -1,5 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { FadeIn } from './FadeIn'
+import { FloatingStickers } from './FloatingStickers'
 import { brand } from '../i18n/translations'
 import { useLanguage } from '../i18n/LanguageContext'
 import {
@@ -56,8 +57,33 @@ export function Contact() {
   }
 
   return (
-    <section id="contacto" className="bg-cream py-16 sm:py-28">
-      <div className="section-pad section-max">
+    <section id="contacto" className="relative overflow-hidden bg-cream py-16 sm:py-28">
+      <FloatingStickers
+        items={[
+          {
+            src: '/img/stickers/constellation.png',
+            className: 'right-2 top-8 w-24 sm:right-5 sm:top-10 sm:w-36 lg:right-8 lg:w-44',
+            rotate: 3,
+            delay: 0.15,
+          },
+          {
+            src: '/img/stickers/shooting-star.png',
+            className: 'left-2 bottom-12 hidden w-12 md:block lg:left-4 lg:w-16',
+            rotate: -8,
+            delay: 0.3,
+            duration: 5,
+          },
+          {
+            src: '/img/stickers/heart.png',
+            className: 'right-6 bottom-20 hidden w-10 lg:block',
+            rotate: 12,
+            delay: 0.4,
+            duration: 4.5,
+          },
+        ]}
+      />
+
+      <div className="section-pad section-max relative z-10">
         <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-12">
           <FadeIn>
             <p className="font-display text-sm font-semibold uppercase tracking-[0.2em] text-magenta">

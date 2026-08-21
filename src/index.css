@@ -109,4 +109,72 @@
       -webkit-text-stroke-width: 1.75px;
     }
   }
+
+  .membership-card {
+    background: linear-gradient(120deg, #8c4fd1, #c15a87, #e8794a);
+    box-shadow: 0 22px 50px rgba(43, 27, 107, 0.22);
+  }
+
+  .membership-card-inner {
+    background:
+      radial-gradient(ellipse at 12% 0%, rgba(251, 246, 236, 0.95), transparent 45%),
+      radial-gradient(ellipse at 100% 100%, rgba(170, 199, 219, 0.55), transparent 50%),
+      linear-gradient(160deg, #eef5f9 0%, #fbf6ec 48%, #e7f0f6 100%);
+  }
+
+  .membership-card-shine {
+    background: linear-gradient(
+      110deg,
+      transparent 28%,
+      rgba(255, 255, 255, 0.45) 48%,
+      transparent 62%
+    );
+    transform: translateX(-120%);
+    animation: membership-shine 5.5s ease-in-out infinite;
+  }
+
+  @keyframes membership-shine {
+    0%,
+    55% {
+      transform: translateX(-120%);
+    }
+    75%,
+    100% {
+      transform: translateX(120%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .membership-card-shine {
+      animation: none;
+      opacity: 0.15;
+      transform: none;
+    }
+  }
+
+  .sticker {
+    transform: rotate(var(--sticker-rotate, 0deg));
+    filter: drop-shadow(0 10px 18px rgba(43, 27, 107, 0.16));
+    will-change: transform;
+  }
+
+  .sticker-float {
+    animation: sticker-float var(--sticker-duration, 6s) ease-in-out infinite;
+  }
+
+  @keyframes sticker-float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(var(--sticker-rotate, 0deg));
+    }
+    50% {
+      transform: translateY(-12px) rotate(calc(var(--sticker-rotate, 0deg) + 5deg));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sticker-float {
+      animation: none;
+    }
+  }
 }

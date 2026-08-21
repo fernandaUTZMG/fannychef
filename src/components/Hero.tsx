@@ -1,5 +1,6 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
+import { FloatingStickers } from './FloatingStickers'
 import { useLanguage } from '../i18n/LanguageContext'
 
 export function Hero() {
@@ -43,6 +44,24 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/25 to-ink/70" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_35%,transparent_15%,rgba(26,18,56,0.35)_100%)]" />
       </motion.div>
+
+      <FloatingStickers
+        items={[
+          {
+            src: '/img/stickers/sun.png',
+            className: 'right-2 top-20 w-14 sm:right-6 sm:top-24 sm:w-20 lg:right-10 lg:w-24',
+            rotate: 8,
+            delay: 0.35,
+          },
+          {
+            src: '/img/stickers/sparkles.png',
+            className: 'left-2 top-28 hidden w-9 sm:block lg:left-6 lg:w-12',
+            rotate: -12,
+            delay: 0.5,
+            duration: 4,
+          },
+        ]}
+      />
 
       <motion.div
         style={reduceMotion ? undefined : { opacity }}

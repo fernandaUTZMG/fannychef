@@ -1,4 +1,5 @@
 import { About } from './components/About'
+import { ChefPackage } from './components/ChefPackage'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 import { Gallery } from './components/Gallery'
@@ -18,6 +19,7 @@ function App() {
         <Hero />
         <Highlights />
         <About />
+        <ChefPackage />
         <Membership />
         <Process />
         <Gallery />
